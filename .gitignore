@@ -1,0 +1,11 @@
+# Ignore everything
+*
+
+# Allow these files (root level)
+!.gitignore
+!deps.edn
+!README.md
+
+# Allow these directories and their contents
+# !example/
+# !example/**
