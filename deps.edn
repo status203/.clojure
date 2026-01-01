@@ -1,5 +1,5 @@
 {:aliases {:portal
-           {:extra-deps {djblue/portal {:mvn/version "0.59.1"}}}
+           {:extra-deps {djblue/portal {:mvn/version "0.62.1"}}}
 
            :storm/v1-12
            {:classpath-overrides {org.clojure/clojure nil}
@@ -7,8 +7,8 @@
                          com.github.flow-storm/flow-storm-dbg {:mvn/version "4.5.9"}}}
 
            :nrepl/rebel
-             {:extra-deps {nrepl/nrepl                {:mvn/version "1.4.0"}
-                           cider/cider-nrepl          {:mvn/version "0.57.0"}
+             {:extra-deps {nrepl/nrepl                {:mvn/version "1.5.2"}
+                           cider/cider-nrepl          {:mvn/version "0.58.0"}
                            com.bhauman/rebel-readline {:mvn/version "0.1.5"}}
               :main-opts  ["--eval" "(apply require clojure.main/repl-requires)"
                            "--main" "nrepl.cmdline"
@@ -17,8 +17,8 @@
                            "-f" "rebel-readline.main/-main"]}
            
            :nrepl/headless
-           {:extra-deps {nrepl/nrepl                {:mvn/version "1.4.0"}
-                         cider/cider-nrepl          {:mvn/version "0.57.0"}
+           {:extra-deps {nrepl/nrepl                {:mvn/version "1.5.2"}
+                         cider/cider-nrepl          {:mvn/version "0.58.0"}
                          com.bhauman/rebel-readline {:mvn/version "0.1.5"}}
             :main-opts  ["--main" "nrepl.cmdline"
                          "--middleware" "[cider.nrepl/cider-middleware]"]}}}
