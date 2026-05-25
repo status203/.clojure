@@ -1,30 +1,45 @@
-{:aliases {:dbg
-           {:extra-deps {djblue/portal {:mvn/version "0.62.1"}
-                         vvvvalvalval/scope-capture {:mvn/version "0.3.3"}}}
+{:aliases
+ {;; Data inspector (Portal) and local-binding capture (scope-capture).
+  ;; Library deps only — require in a running REPL. Composes with any other alias.
+  ;; Usage: clj -M:dbg:nrepl/rebel
+  :dbg
+  {:extra-deps {djblue/portal {:mvn/version "0.62.1"}
+                vvvvalvalval/scope-capture {:mvn/version "0.3.3"}}}
 
-           :nrepl/headless
-           {:extra-deps {nrepl/nrepl                {:mvn/version "1.5.2"}
-                         cider/cider-nrepl          {:mvn/version "0.58.0"}
-                         com.bhauman/rebel-readline {:mvn/version "0.1.5"}}
-            :main-opts  ["--main" "nrepl.cmdline"
-                         "--middleware" "[cider.nrepl/cider-middleware]"]}
+  ;; Headless nREPL server with cider middleware. For editor connections
+  ;; (Emacs/CIDER, Calva, Cursive). Prints port to .nrepl-port.
+  ;; Usage: clj -M:nrepl/headless
+  :nrepl/headless
+  {:extra-deps {nrepl/nrepl                {:mvn/version "1.5.2"}
+                cider/cider-nrepl          {:mvn/version "0.58.0"}
+                com.bhauman/rebel-readline {:mvn/version "0.1.5"}}
+   :main-opts  ["--main" "nrepl.cmdline"
+                "--middleware" "[cider.nrepl/cider-middleware]"]}
 
-           :nrepl/rebel
-           {:extra-deps {nrepl/nrepl                {:mvn/version "1.5.2"}
-                         cider/cider-nrepl          {:mvn/version "0.58.0"}
-                         com.bhauman/rebel-readline {:mvn/version "0.1.5"}}
-            :main-opts  ["--eval" "(apply require clojure.main/repl-requires)"
-                         "--main" "nrepl.cmdline"
-                         "--middleware" "[cider.nrepl/cider-middleware]"
-                         "--interactive"
-                         "-f" "rebel-readline.main/-main"]}
+  ;; Interactive nREPL with rebel-readline (syntax highlighting, multi-line
+  ;; editing). Also accepts editor connections on the same nREPL server.
+  ;; Usage: clj -M:nrepl/rebel
+  :nrepl/rebel
+  {:extra-deps {nrepl/nrepl                {:mvn/version "1.5.2"}
+                cider/cider-nrepl          {:mvn/version "0.58.0"}
+                com.bhauman/rebel-readline {:mvn/version "0.1.5"}}
+   :main-opts  ["--eval" "(apply require clojure.main/repl-requires)"
+                "--main" "nrepl.cmdline"
+                "--middleware" "[cider.nrepl/cider-middleware]"
+                "--interactive"
+                "-f" "rebel-readline.main/-main"]}
 
-           :outdated {;; Note that it is `:deps`, not `:extra-deps`
-                      :deps {com.github.liquidz/antq {:mvn/version "RELEASE"}}
-                      :main-opts ["-m" "antq.core"]}
+  ;; Dependency version checker. Reports available updates for deps.edn,
+  ;; project.clj, and pom.xml.
+  ;; Usage: clj -M:outdated
+  :outdated {;; Note that it is `:deps`, not `:extra-deps`
+             :deps {com.github.liquidz/antq {:mvn/version "RELEASE"}}
+             :main-opts ["-m" "antq.core"]}
 
-           :storm/v1-12
-           {:classpath-overrides {org.clojure/clojure nil}
-            :extra-deps {com.github.flow-storm/clojure {:mvn/version "1.12.4"}
-                         com.github.flow-storm/flow-storm-dbg {:mvn/version "4.5.9"}}}}}
-
+  ;; FlowStorm time-travel debugger for Clojure 1.12.x. Replaces the standard
+  ;; Clojure compiler with an instrumented fork — must be activated at startup.
+  ;; Usage: clj -M:storm/v1-12:nrepl/rebel
+  :storm/v1-12
+  {:classpath-overrides {org.clojure/clojure nil}
+   :extra-deps {com.github.flow-storm/clojure {:mvn/version "1.12.4"}
+                com.github.flow-storm/flow-storm-dbg {:mvn/version "4.5.9"}}}}}
